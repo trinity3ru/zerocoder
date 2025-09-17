@@ -17,7 +17,7 @@ class User():
 
 
 class Admin(User):
-    def __init__(self, id: int, name: str, level_access: str = 'user', is_admin: bool ='True') -> None:
+    def __init__(self, id: int, name: str, level_access: str = 'user', is_admin: bool =True) -> None:
         super().__init__(id, name, level_access)
         self.is_admin = is_admin
 
@@ -25,14 +25,14 @@ class Admin(User):
         users.append(user)
 
     def __remove_user(self, users: list, user):
-        if user in users:
+        if user not in users:
             raise ValueError("User not in the list")
         users.remove(user)
 
     def delete_user (self, users: list, user):
         if not self.is_admin:
             raise PermissionError("Invalid level access")
-            self.__remove_user(users, user)
+        self.__remove_user(users, user)
                         
 
 
