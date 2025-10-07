@@ -40,9 +40,65 @@ class ArmedFighter(Fighter):
         else:
             print(f"{self.name} не имеет оружия и не наносит урон")
 
-class Monster:
-    def __init__(self, name:str ='Монстр'):
-        self.name= name
+class Hero (ArmedFighter):
+
+    def __init__(self, name:str='Неизвестный', type_fighter:str='Боец', health:int = 100, attack_power:int = 20):
+        super().__init__(name, type_fighter)
+        self.weapon = None
+        self.health= health
+        self.attack_power= attack_power
+
+    def attack(self, other):
+        other.health -=self.attack_power
+        
+
+    def is_alive(self) -> bool:
+        return self.health > 0
+    
+
+            
+class Game():
+    def __init__(self, player:Hero, computer:Hero):
+        self.player = player
+        self.computer = computer
+            # player = Hero('Иван', 'Боец', health=110, attack_power=25)
+            # computer = Hero('Robotron', 'Магик', health=150, attack_power=20)
+    def start(self):
+        print("Start battle!")
+        turns = 0
+        while True:
+            turns+=1
+            print(f"Round {turns} start!")
+            # player turn
+            self.player.attack(self.computer)
+            print(f"{self.player.name} hit {self.player.attack_power}")
+            print(f"Computer has {self.computer.health}")
+            if self.computer.is_alive() == False:
+                print(f"{self.player.name} is win!")
+                break
+            
+            # self.computer turn
+            self.computer.attack(self.player)
+            print(f"{self.computer.name} hit {self.computer.attack_power}") 
+            print(f"{self.player.name} has {self.player.health}") 
+            if self.player.is_alive() == False:
+                print(f"{self.computer.name} is win!")
+                break  
+                    
+
+
+
+heroin = Hero('Марфа', 'Магик', 80, 35)
+ZloyComp = Hero('ОпятьЗавис', 'Магик', 110, 20)
+game1 = Game(heroin, ZloyComp)    
+game1.start()  
+
+
+    
+
+# class Monster:
+#     def __init__(self, name:str ='Монстр'):
+#         self.name= name
 
 
 class Weapon(ABC):
@@ -91,37 +147,39 @@ class   Sword(Weapon):
 
 #       бой
 
-bow = Bow('Лук тисовый')
-sword = Sword('Кладенец')
-staff = MagicWeapon('Стафф')
+# bow = Bow('Лук тисовый')
+# sword = Sword('Кладенец')
+# staff = MagicWeapon('Стафф')
 
 # Alexander = ArmedFighter('Александер')  
 # Alexander.change_weapon(bow)  
 # Alexander.attack()
 
-monster = Monster('Минотавр')
+# monster = Monster('Минотавр')
 
-Saruman = ArmedFighter('Саруман','Магик')
+# Saruman = ArmedFighter('Саруман','Магик')
 
-handler= WeaponHandler() 
+# handler= WeaponHandler() 
 
-if handler.change_weapon(bow, Saruman):
-    Saruman.get_weapon(bow)
-    Saruman.attack()
-
-
-if handler.change_weapon(sword, Saruman):
-    Saruman.get_weapon(sword)
-    Saruman.attack()
+# if handler.change_weapon(bow, Saruman):
+#     Saruman.get_weapon(bow)
+#     Saruman.attack()
 
 
+# if handler.change_weapon(sword, Saruman):
+#     Saruman.get_weapon(sword)
+#     Saruman.attack()
 
-print(f"{monster.name} злорадно скалится и бьет {Saruman.name} по почкам! ")
 
 
-if handler.change_weapon(staff, Saruman):
-    Saruman.get_weapon(staff)  
-    Saruman.attack()
+# print(f"{monster.name} злорадно скалится и бьет {Saruman.name} по почкам! ")
+
+
+# if handler.change_weapon(staff, Saruman):
+#     Saruman.get_weapon(staff)  
+#     Saruman.attack()
  
 
-print(f"{monster.name} погибает((")
+# print(f"{monster.name} погибает((")
+
+ 
